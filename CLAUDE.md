@@ -120,4 +120,4 @@ No published address was found for MORRFlate, Autonomous or HigherDOSE.
 
 ## Daily automation
 
-A scheduled cloud session runs `automation/RUNBOOK.md` Monday to Saturday at 4:41 AM Eastern. Gemini proposes prospects; Claude verifies contacts on each brand's own site, writes the pitches, checks them with `automation/check_drafts.py`, and saves Gmail drafts (never sends). `data/ledger.csv` and `data/do_not_contact.csv` are the source of truth for who has been contacted. Update them whenever outreach state changes.
+A scheduled cloud session runs `automation/RUNBOOK.md` Monday to Saturday at 4:41 AM Eastern. Claude researches prospects with live web search following `automation/RESEARCH_BRIEF.md`, verifies contacts on each brand's own site, writes the pitches, checks them with `automation/check_drafts.py`, and saves Gmail drafts (never sends). `data/ledger.csv` and `data/do_not_contact.csv` are the source of truth for who has been contacted. Update them whenever outreach state changes.

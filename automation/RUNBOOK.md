@@ -23,18 +23,26 @@ do not wait for answers, and never send an email. The only outputs are **Gmail d
      build clock has started. Save a short Gmail **draft reply** in that thread confirming the
      timeline. Do not send it.
 
-## 2. Research (Gemini)
+## 2. Research (Claude, live web)
 
-```bash
-python3 automation/gemini_research.py --date DATE --candidates 25
-```
+Read `automation/RESEARCH_BRIEF.md` for who to find, what to offer, which signals to look for
+and what to avoid. Where a section says `TBD`, use the default under it. If `WebSearch` or
+`WebFetch` are deferred tools, load them with ToolSearch first.
 
-This writes `runs/DATE/candidates.json`. It falls back across free-tier Flash models. If every
-model fails, do the research yourself with web search using the same brief (see `SYSTEM` in the
-script) and note "Gemini unavailable" in the report.
+1. Run several web searches in parallel built from the brief, for example
+   "<category> brand Shopify direct to consumer", "best <category> brands 2026",
+   "<category> startup raises", "<category> new product launch", and roundups or gift guides
+   in the brief's categories. Vary the queries day to day so the same brands don't keep coming back.
+2. Build a list of the number of candidate brands set in the brief (default 25). Skip any brand,
+   parent company or sister brand that is already in `data/ledger.csv` or
+   `data/do_not_contact.csv`.
+3. For each candidate, fill in: `brand`, `domain`, `category`, `hero_product`, `why_now` (one
+   sentence on the buying-decision friction, with the signal you found and its URL),
+   `offer_fit` (A, B or C), `tool_idea`, `ad_angle`, `contact_pages`.
+4. Save the list as `runs/DATE/candidates.json`: `{"date","prospects":[...],"queries":[...]}`.
 
-Gemini's contact fields (`suggested_email`, `instagram`, `linkedin_company`,
-`ecommerce_lead_*`) are **unverified leads**. Do not use any of them until step 3 confirms it.
+Treat anything from search snippets, roundups or third-party sites as a lead to check, not as
+fact. Contact details are only ever taken from step 3 below.
 
 ## 3. Verify each candidate (stop at 10 verified)
 
@@ -59,8 +67,8 @@ Work through the candidates in order. For each brand:
    Name an e-commerce lead only if a public source shows it; mark it "verify manually" and
    never use it as an email address.
 
-If fewer than 10 brands pass, run the research script once more with `--candidates 25`
-(the ledger now excludes the brands you just checked). Then stop. **Never pad the list
+If fewer than 10 brands pass, repeat step 2 once with new queries for another batch of candidates
+(skip every brand already checked today). Then stop. **Never pad the list
 with unverified contacts.** Fewer, real drafts are the right outcome.
 
 ## 4. Write the emails
@@ -112,7 +120,7 @@ Record each draft's id or `viewUrl`.
 
 1. Append each drafted brand to `data/ledger.csv` with status `drafted`, `email`, `source_url`,
    `last_update=DATE`, and offer fit / tool idea in `notes`. Add skipped brands too
-   (`form_only`, `no_contact_found`, `not_shopify`) so Gemini never proposes them again.
+   (`form_only`, `no_contact_found`, `not_shopify`) so they are never researched again.
 2. Write `runs/DATE/report.md` containing:
    - **Action needed:** positive replies or builds owed (with deadline), bounces.
    - **Today's drafts:** a table of brand, address, source, offer, tool idea, ad angle,
