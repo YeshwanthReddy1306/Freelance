@@ -83,20 +83,36 @@ def load_exclusions():
 
 
 def call(model, body):
-    body = dict(body, model=model)
-    r = subprocess.run(
-        ["curl", "-sS", "-m", "300", URL,
-         "-H", "Content-Type: application/json", "-d", json.dumps(body)],
-        capture_output=True, text=True)
+    """Ungrounded fallback on the native endpoint (works with the x-goog-api-key secret).
+    If the key is saved as a Bearer token instead, use the OpenAI-compatible endpoint."""
+    sys_msg, user_msg = body["messages"][0]["content"], body["messages"][1]["content"]
+    req = {"system_instruction": {"parts": [{"text": sys_msg}]},
+           "contents": [{"role": "user", "parts": [{"text": user_msg}]}],
+           "generationConfig": {"responseMimeType": "application/json"}}
+    r = subprocess.run(["curl", "-sS", "-m", "300", NATIVE.format(model=model),
+                        "-H", "Content-Type: application/json", "-d", json.dumps(req)],
+                       capture_output=True, text=True)
     try:
         d = json.loads(r.stdout)
     except Exception:
         return None, f"non-JSON response: {r.stderr.strip()[:200]}"
     if isinstance(d, list):
         d = d[0]
+    if "error" in d and d["error"].get("code") in (400, 401, 403):
+        # key saved as Bearer: native API refuses it, the OpenAI-compatible endpoint accepts it
+        r = subprocess.run(["curl", "-sS", "-m", "300", URL, "-H", "Content-Type: application/json",
+                            "-d", json.dumps(dict(body, model=model))], capture_output=True, text=True)
+        try:
+            d = json.loads(r.stdout)
+        except Exception:
+            return None, f"non-JSON response: {r.stderr.strip()[:200]}"
+        if isinstance(d, list):
+            d = d[0]
+        if "error" not in d:
+            return d["choices"][0]["message"]["content"], None
     if "error" in d:
         return None, f"{d['error'].get('code')} {d['error'].get('message', '')[:200]}"
-    return d["choices"][0]["message"]["content"], None
+    return "".join(pt.get("text", "") for pt in d["candidates"][0]["content"]["parts"]), None
 
 
 def call_grounded(model, body):
@@ -114,6 +130,8 @@ def call_grounded(model, body):
         d = json.loads(r.stdout)
     except Exception:
         return None, None, f"non-JSON response: {r.stderr.strip()[:200]}"
+    if isinstance(d, list):
+        d = d[0]
     if "error" in d:
         return None, None, f"{d['error'].get('code')} {d['error'].get('message', '')[:200]}"
     c = d["candidates"][0]
