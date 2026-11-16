@@ -5,8 +5,10 @@ Gemini is used for ideation only (which brands, why, which offer, tool idea, ad 
 It is NOT trusted for contact details: every email/handle it returns is treated as a
 lead to verify, and Claude only keeps an address it has seen on the brand's own site.
 
-Auth: the cloud environment's proxy injects the Gemini key as a Bearer token for
-generativelanguage.googleapis.com, so this script sends a placeholder.
+Auth: the cloud environment's proxy injects the Gemini key for generativelanguage.googleapis.com.
+- Saved under the x-goog-api-key header: grounded mode works (native API + live Google Search).
+- Saved as a Bearer token: only the OpenAI-compatible endpoint works (no live search).
+The script tries grounded first and falls back automatically.
 
 Usage: python3 automation/gemini_research.py --date 2026-11-17 [--candidates 25]
 Writes runs/<date>/candidates.json
@@ -16,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+NATIVE = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 # Free-tier friendly models, tried in order. Pro models have zero free quota.
 MODELS = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-flash-latest", "gemini-3.1-flash-lite"]
 
@@ -82,7 +85,7 @@ def load_exclusions():
 def call(model, body):
     body = dict(body, model=model)
     r = subprocess.run(
-        ["curl", "-sS", "-m", "300", URL, "-H", "Authorization: Bearer proxy-injected",
+        ["curl", "-sS", "-m", "300", URL,
          "-H", "Content-Type: application/json", "-d", json.dumps(body)],
         capture_output=True, text=True)
     try:
@@ -94,6 +97,30 @@ def call(model, body):
     if "error" in d:
         return None, f"{d['error'].get('code')} {d['error'].get('message', '')[:200]}"
     return d["choices"][0]["message"]["content"], None
+
+
+def call_grounded(model, body):
+    """Native endpoint with live Google Search. Needs the key saved under the x-goog-api-key
+    header; with a Bearer-only key Google rejects it and we fall back to ungrounded mode."""
+    sys_msg, user_msg = body["messages"][0]["content"], body["messages"][1]["content"]
+    req = {"system_instruction": {"parts": [{"text": sys_msg}]},
+           "contents": [{"role": "user", "parts": [{"text": user_msg +
+               "\nUse Google Search to confirm each brand is current. Output only the JSON object, no prose."}]}],
+           "tools": [{"google_search": {}}]}
+    r = subprocess.run(["curl", "-sS", "-m", "300", NATIVE.format(model=model),
+                        "-H", "Content-Type: application/json", "-d", json.dumps(req)],
+                       capture_output=True, text=True)
+    try:
+        d = json.loads(r.stdout)
+    except Exception:
+        return None, None, f"non-JSON response: {r.stderr.strip()[:200]}"
+    if "error" in d:
+        return None, None, f"{d['error'].get('code')} {d['error'].get('message', '')[:200]}"
+    c = d["candidates"][0]
+    text = "".join(pt.get("text", "") for pt in c["content"]["parts"])
+    text = text[text.find("{"): text.rfind("}") + 1]
+    srcs = [ch.get("web", {}).get("uri") for ch in c.get("groundingMetadata", {}).get("groundingChunks", [])]
+    return text, [u for u in srcs if u], None
 
 
 def main():
@@ -114,23 +141,38 @@ def main():
                 excluded=", ".join(sorted(names | domains)))},
         ],
     }
-    errors = []
+    errors, sources, grounded = [], [], False
+    attempts = []
     for model in MODELS:
-        for attempt in range(3):
-            text, err = call(model, body)
+        attempts.append(("grounded", model))
+    for model in MODELS:
+        attempts.append(("plain", model))
+    for mode, model in attempts:
+        if mode == "grounded" and errors and "OAuth" in errors[-1]:
+            continue  # key not saved for grounded mode: skip straight to plain
+        for attempt in range(1 if mode == "grounded" else 3):
+            if mode == "grounded":
+                text, sources, err = call_grounded(model, body)
+            else:
+                text, err = call(model, body)
             if text:
-                data = json.loads(text)
+                try:
+                    data = json.loads(text)
+                except Exception:
+                    errors.append(f"{mode} {model}: unparseable JSON"); break
+                grounded = mode == "grounded"
                 keep = [p for p in data.get("prospects", [])
                         if p.get("brand", "").strip() not in names
                         and (p.get("domain") or "").lower().removeprefix("www.") not in domains]
-                out = {"date": a.date, "model": model, "dropped_as_duplicates":
+                out = {"date": a.date, "model": model, "grounded_search": grounded,
+                       "search_sources": sources if grounded else [], "dropped_as_duplicates":
                        len(data.get("prospects", [])) - len(keep), "prospects": keep}
                 d = ROOT / "runs" / a.date
                 d.mkdir(parents=True, exist_ok=True)
                 (d / "candidates.json").write_text(json.dumps(out, indent=2))
-                print(f"OK model={model} kept={len(keep)} dropped={out['dropped_as_duplicates']} -> {d/'candidates.json'}")
+                print(f"OK mode={mode} model={model} kept={len(keep)} dropped={out['dropped_as_duplicates']} -> {d/'candidates.json'}")
                 return 0
-            errors.append(f"{model} try {attempt+1}: {err}")
+            errors.append(f"{mode} {model} try {attempt+1}: {err}")
             if err and (err.startswith("404") or err.startswith("429")):
                 break  # model unavailable or out of quota: next model
             time.sleep(20 * (attempt + 1))
