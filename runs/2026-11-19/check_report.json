@@ -1,0 +1,74 @@
+[
+  {
+    "brand": "Thuma",
+    "to": "partnerships@thuma.co",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Coop Sleep Goods",
+    "to": "info@coopsleepgoods.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Sabai",
+    "to": "sales@sabai.design",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Velotric",
+    "to": "sales@velotricbike.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Go Fast Campers",
+    "to": "support@gofastcampers.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "The Rag Company",
+    "to": "support@theragcompany.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Epoch Batteries",
+    "to": "support@epochbatteries.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Battle Born Batteries",
+    "to": "marketing@dragonflyenergy.com",
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "address domain dragonflyenergy.com differs from brand domain battlebornbatteries.com: confirm it is the brand's own"
+    ]
+  },
+  {
+    "brand": "Maiden Home",
+    "to": "press@maidenhome.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "brand": "Renu Therapy",
+    "to": "help@renutherapy.com",
+    "pass": true,
+    "errors": [],
+    "warnings": []
+  }
+]

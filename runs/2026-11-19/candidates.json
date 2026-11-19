@@ -1,0 +1,363 @@
+{
+  "date": "2026-11-19",
+  "prospects": [
+    {
+      "brand": "Thuma",
+      "domain": "thuma.co",
+      "category": "furniture/beds",
+      "hero_product": "Classic Bed",
+      "why_now": "Classic Bed: 4 configurations x 6 sizes plus separate nightstand/drawer/mattress add-ons (thuma.co/products/the-bed)",
+      "offer_fit": "A",
+      "tool_idea": "Room-fit bed builder: size + configuration + to-scale room sketch + nightstand/drawer/mattress bundle",
+      "ad_angle": "Five-minute assembly, no tools; underbed storage reveal; PillowBoard vs Headboard",
+      "contact_pages": [
+        "https://www.thuma.co/pages/contact-us"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Coop Sleep Goods",
+      "domain": "coopsleepgoods.com",
+      "category": "sleep",
+      "hero_product": "Original Adjustable Pillow",
+      "why_now": "Original Adjustable Pillow: 3 shapes x 2 sizes, fill adjustment left to buyer; Sleep Quiz exists (coopsleepgoods.com)",
+      "offer_fit": "C",
+      "tool_idea": "Pillow fit finder: sleep position + frame + mattress feel -> shape, size, starting fill level, protector add-on",
+      "ad_angle": "Remove-the-fill demo; side vs back vs stomach sleeper hooks; Crescent vs Classic split screen",
+      "contact_pages": [
+        "https://coopsleepgoods.com/pages/press"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Sabai",
+      "domain": "sabai.design",
+      "category": "furniture",
+      "hero_product": "Elevate Natural Sectional",
+      "why_now": "Elevate Natural line marked NEW; Eclipse sectional with left/right chaise; 4 fabric families (sabai.design)",
+      "offer_fit": "A",
+      "tool_idea": "Sectional configurator: room outline + Elevate/Eclipse pieces + chaise side + fabric family, full set to cart",
+      "ad_angle": "Swap-a-cover repairability; PFAS-free fabric close-ups; 86 vs 96 inch in a real room",
+      "contact_pages": [
+        "https://sabai.design/pages/contact"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Velotric",
+      "domain": "velotricbike.com",
+      "category": "e-bikes",
+      "hero_product": "Discover 3 Ebike",
+      "why_now": "20+ e-bike models incl. Discover 3, Summit 2, Nomad 2X, GoMad, plus bundle kits (velotricbike.com/products.json)",
+      "offer_fit": "C",
+      "tool_idea": "Rider match: height + distance + terrain + cargo -> 1-2 models + matching kit (Commuter/Cargo/Pet Carrier)",
+      "ad_angle": "Commute vs trail vs cargo POV; 'which Velotric are you' quiz hooks; pet carrier kit reveal",
+      "contact_pages": [
+        "https://www.velotricbike.com/pages/contact-us"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Go Fast Campers",
+      "domain": "gofastcampers.com",
+      "category": "overland/truck campers",
+      "hero_product": "V2 PRO Camper",
+      "why_now": "V2 MAX Launch Edition, 18 in longer than PRO; long upgrade list (gofastcampers.com)",
+      "offer_fit": "A",
+      "tool_idea": "Truck fit + build planner: truck/bed -> V2 PRO vs V2 MAX, then heater/power/ladder/lighting/MOLLE bundle",
+      "ad_angle": "Pop-top setup timelapse; PRO vs MAX length side by side; winter build with diesel heater",
+      "contact_pages": [
+        "https://gofastcampers.com/pages/contact-us"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "The Rag Company",
+      "domain": "theragcompany.com",
+      "category": "car care",
+      "hero_product": "Eagle Edgeless 450",
+      "why_now": "Hundreds of near-identical towel SKUs; visual difference suits short video (theragcompany.com)",
+      "offer_fit": "B",
+      "tool_idea": "(ads first) optional towel-by-task kit builder later",
+      "ad_angle": "Towel-by-task breakdown; pet hair cleanup with the Pet Hair Rake; wash-to-dry routine",
+      "contact_pages": [
+        "https://theragcompany.com/pages/contact-us"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Epoch Batteries",
+      "domain": "epochbatteries.com",
+      "category": "lithium batteries",
+      "hero_product": "48V 105Ah Lithium Golf Cart Kit",
+      "why_now": "48V/72V golf cart conversion kits incl. Club Car DS; 2026 RV battery launches (newsfilecorp.com/release/299798)",
+      "offer_fit": "A",
+      "tool_idea": "Golf cart conversion finder: make/model/voltage/use -> kit + charger + meter",
+      "ad_angle": "Lead-acid to lithium swap timelapse; cold-weather heated battery; weight comparison",
+      "contact_pages": [
+        "https://www.epochbatteries.com/support"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Battle Born Batteries",
+      "domain": "battlebornbatteries.com",
+      "category": "RV power",
+      "hero_product": "100Ah 12V GC2 LiFePO4 Deep Cycle Battery",
+      "why_now": "GC2 in Standard/Smart/Heated/Smart Heated plus inverter and solar kits; Ember RV 2026 standardization (moderncampground.com)",
+      "offer_fit": "A",
+      "tool_idea": "RV power planner: rig + appliances + boondock days -> GC2 version, quantity, inverter and solar kit",
+      "ad_angle": "Boondocking weekend POV; heated vs standard in winter; Reno factory made-in-USA story",
+      "contact_pages": [
+        "https://battlebornbatteries.com/pages/contact"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Maiden Home",
+      "domain": "maidenhome.com",
+      "category": "furniture",
+      "hero_product": "Miles Modular Sectional",
+      "why_now": "Miles Modular Sectional configurable 1-8 modules (maidenhome.com)",
+      "offer_fit": "A",
+      "tool_idea": "Modular layout planner: room size -> Miles module count/shape to scale + ottoman + swatch requests",
+      "ad_angle": "North Carolina workshop craft; one-to-eight module transformations; swatch-box unboxing",
+      "contact_pages": [
+        "https://maidenhome.com/pages/contact"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Renu Therapy",
+      "domain": "renutherapy.com",
+      "category": "cold plunge",
+      "hero_product": "Vero",
+      "why_now": "Vero: Cold Only vs Hot + Cold, base and deck colors; Cold Stoic 3.0 (renutherapy.com)",
+      "offer_fit": "C",
+      "tool_idea": "Plunge matcher: placement + heat use + household -> Vero config or Cold Stoic 3.0 + maintenance package",
+      "ad_angle": "Hot + Cold contrast routine; backyard vs garage install; Vero color/deck reveal",
+      "contact_pages": [
+        "https://www.renutherapy.com/pages/about-renu-contact"
+      ],
+      "verification": "verified_drafted"
+    },
+    {
+      "brand": "Carl's Place",
+      "domain": "carlofet.com",
+      "category": "golf simulator enclosures",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://carlofet.com/"
+      ],
+      "verification": "not_shopify"
+    },
+    {
+      "brand": "The Indoor Golf Shop",
+      "domain": "shopindoorgolf.com",
+      "category": "golf simulators",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://shopindoorgolf.com/"
+      ],
+      "verification": "held: address only in JSON-LD metadata, multi-brand retailer"
+    },
+    {
+      "brand": "Allform",
+      "domain": "allform.com",
+      "category": "modular sofas",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://allform.com/"
+      ],
+      "verification": "not_shopify (no Shopify signal)"
+    },
+    {
+      "brand": "DreamSofa",
+      "domain": "dreamsofa.com",
+      "category": "custom sofas",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://dreamsofa.com/"
+      ],
+      "verification": "not_shopify"
+    },
+    {
+      "brand": "Ride1Up",
+      "domain": "ride1up.com",
+      "category": "e-bikes",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://ride1up.com/"
+      ],
+      "verification": "not_shopify"
+    },
+    {
+      "brand": "SpringWell Water",
+      "domain": "springwellwater.com",
+      "category": "water filtration",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://springwellwater.com/"
+      ],
+      "verification": "not_shopify"
+    },
+    {
+      "brand": "Clearlight Saunas",
+      "domain": "healwithheat.com",
+      "category": "saunas/cold plunge",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://healwithheat.com/"
+      ],
+      "verification": "not_shopify"
+    },
+    {
+      "brand": "HomePlunge",
+      "domain": "homeplunge.com",
+      "category": "cold plunge",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://homeplunge.com/"
+      ],
+      "verification": "not_shopify, no email"
+    },
+    {
+      "brand": "Halo Collar",
+      "domain": "halocollar.com",
+      "category": "pet tech",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://halocollar.com/"
+      ],
+      "verification": "not_shopify"
+    },
+    {
+      "brand": "Super73",
+      "domain": "super73.com",
+      "category": "e-bikes",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://super73.com/"
+      ],
+      "verification": "no_contact_found"
+    },
+    {
+      "brand": "Mockingbird",
+      "domain": "hellomockingbird.com",
+      "category": "strollers",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://hellomockingbird.com/"
+      ],
+      "verification": "no_contact_found"
+    },
+    {
+      "brand": "Titan Fitness",
+      "domain": "titan.fitness",
+      "category": "home gym",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://titan.fitness/"
+      ],
+      "verification": "no_contact_found"
+    },
+    {
+      "brand": "BedJet",
+      "domain": "bedjet.com",
+      "category": "sleep",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://bedjet.com/"
+      ],
+      "verification": "no_contact_found"
+    },
+    {
+      "brand": "Ice Barrel",
+      "domain": "icebarrel.com",
+      "category": "cold plunge",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://icebarrel.com/"
+      ],
+      "verification": "held: address only in returns-app JSON, not visible text"
+    },
+    {
+      "brand": "Ethos Car Care",
+      "domain": "ethoscarcare.com",
+      "category": "car care",
+      "hero_product": "",
+      "why_now": "",
+      "offer_fit": "",
+      "tool_idea": "",
+      "ad_angle": "",
+      "contact_pages": [
+        "https://ethoscarcare.com/"
+      ],
+      "verification": "held: address only in JSON-LD metadata"
+    }
+  ],
+  "queries": [
+    "best golf simulator enclosure brands 2026 direct to consumer",
+    "lithium RV battery brand new product launch 2026 Shopify",
+    "best modular sofa brands 2026 direct to consumer review",
+    "best e-bike brands 2026 new model launch direct to consumer",
+    "best whole house water filter brands 2026 sizing guide",
+    "cold plunge tub brand launch 2026 new model"
+  ]
+}
