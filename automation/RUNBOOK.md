@@ -44,50 +44,51 @@ and what to avoid. Where a section says `TBD`, use the default under it. If `Web
 Treat anything from search snippets, roundups or third-party sites as a lead to check, not as
 fact. Contact details are only ever taken from step 3 below.
 
-## 3. Verify each candidate (stop at 10 verified)
+## 3. Verify each candidate (stop at 5 verified)
 
 Work through the candidates in order. For each brand:
 
 1. **Already contacted?** Check Gmail with `in:anywhere (to:@DOMAIN OR from:@DOMAIN)`
    and check the ledger. Any hit means skip (rule 5).
-2. **US DTC on Shopify?** Fetch the homepage. Look for Shopify signals (`cdn.shopify.com`,
-   `/products/`, `Shopify.theme`). If it isn't Shopify-based, skip.
-3. **Product is real and current:** confirm `hero_product` exists on the site with its current
-   name. Fix the name if it differs.
-4. **Contact email, verified:** fetch the brand's contact, press, partnerships, wholesale and
-   footer pages (`contact_pages`, plus `/pages/contact`, `/contact`, `/pages/press`,
-   `/pages/wholesale`). Keep an address **only if it appears verbatim on a page on the
-   brand's own domain** (or its official help centre). Record `source_url` and the exact
-   `source_quote`. Prefer, in order: partnerships / marketing / press / hello / info / contact,
-   then support.
-   - **Never construct an address from a name pattern** (`first.last@…`). That caused 20+
-     bounces in November (rule 3). If no address is published, mark the brand
-     `form_only` or `no_contact_found` in the ledger and move on.
+2. **Small and founder-led?** Fetch the About page. There must be a named founder or owner and
+   a small team. Skip mid-size funded brands and anything with an in-house growth team or agency.
+   Shopify is preferred, not required.
+3. **Problem is real and current:** open the live shop page yourself and confirm the specific
+   problem (`why_now`) is visible right now. Record the URL and exactly what you saw. If you
+   cannot see it, drop the brand.
+4. **Contact route, verified:** fetch the brand's contact, about and footer pages. Allowed routes,
+   in order: (a) an address for the named owner/founder that appears verbatim on the brand's own
+   domain; (b) a contact form (mark `form_only` and write a form message); (c) a LinkedIn note to a
+   named owner. Record `source_url` and the exact `source_quote`.
+   - **Never use generic inboxes**: support@, info@, sales@, help@, care@, cs@, orders@,
+     customerservice@, enquiries@, press@. They go to ticket systems and bots.
+   - **Never construct an address from a name pattern** (`first.last@...`). That caused 20+
+     bounces in November (rule 3).
 5. **Socials:** keep the Instagram and LinkedIn URLs only if the brand's own site links to them.
    Name an e-commerce lead only if a public source shows it; mark it "verify manually" and
    never use it as an email address.
 
-If fewer than 10 brands pass, repeat step 2 once with new queries for another batch of candidates
+If fewer than 5 brands pass, repeat step 2 once with new queries for another batch of candidates
 (skip every brand already checked today). Then stop. **Never pad the list
 with unverified contacts.** Fewer, real drafts are the right outcome.
 
-## 4. Write the emails
+## 4. Write the messages
 
-For each verified brand, write a `pitch` (body only, without greeting or signature):
+For each verified brand, write a `pitch` (body only, without greeting or signature). Problem-first:
 
-- 3–4 sentences, plain text, 60–110 words. No links, no domains, no prices or `$`, no percentages.
-- Sentence 1: a specific buying-decision friction on *their* site for *their* hero product
-  (sizing, compatibility, runtime, bundling, layout). It must be something you saw on the site.
-- Sentence 2: the offer that fits (`offer_fit`). A = the interactive tool idea; B = the 9:16
-  ad angle (3 concepts × hooks); C = lead with the tool and mention ads in half a sentence.
-- Sentence 3: a working demo within 48 hours, and they only pay if they use it. Call it a
-  concept demo; never imply a partnership or past results.
-- Sentence 4 (optional): a low-friction question ("Worth sending over this week?").
-- Subject: `<Brand> <hero product or tool idea> - Attn: E-Commerce Lead`, under 70 characters.
+- 3-4 sentences, plain text, 50-100 words. No links, no domains, no prices or `$`, no percentages.
+- Sentence 1: one specific, hedged problem you saw on *their* live site ("I noticed ... I may be
+  missing a page that covers this").
+- Sentence 2: ask who looks after the website, and offer to send a quick screenshot.
+- **No offer.** Do not mention a demo, 48 hours, "pay only if", free work, prices or ads in the
+  first touch. Those come only after a person replies.
+- Address the named owner ("Hi Megan,"). Subject: a plain description of what you noticed, under
+  70 characters, no "Attn:" tag needed.
 - Every pitch must read as written for that brand; the checker flags near-duplicates.
+- For `form_only` brands, write the same text as a form message in `runs/DATE/form_messages.md`.
 
 Save them as `runs/DATE/drafts.json`:
-`[{"brand","domain","hero_product","to","subject","pitch","source_url","source_quote","offer_fit","instagram","linkedin"}]`
+`[{"brand","domain","owner","to","subject","pitch","source_url","source_quote","instagram","linkedin"}]`
 
 ## 5. Cross-verify
 
@@ -104,7 +105,7 @@ For each passing draft, call Gmail `create_draft` with exactly one `to`, no cc/b
 and a plain-text `body`:
 
 ```
-Hi <Brand> team,
+Hi <Owner first name>,
 
 <pitch>
 
@@ -126,7 +127,7 @@ Record each draft's id or `viewUrl`.
    - **Today's drafts:** a table of brand, address, source, offer, tool idea, ad angle,
      Instagram, LinkedIn and Gmail draft link.
    - **Skipped:** each skipped brand and the reason.
-   - **Send plan:** send the drafts by hand, 4–5 minutes apart (rule 4).
+   - **Send plan:** send at most 5 a day by hand, 4-5 minutes apart (rule 4).
 3. `git add -A && git commit -m "Outreach run DATE" && git push origin main`
    (retry the push up to 4 times with backoff).
 4. Finish with a short summary: the number of drafts, any action needed, and the report path.

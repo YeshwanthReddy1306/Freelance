@@ -24,10 +24,14 @@ SPAM_TRIGGERS = [
 ]
 OVERCLAIMS = [r"\b\d+(\.\d+)?\s?%", r"\bproven\b", r"\bresults\b", r"\bpartner(ed|ship)? with\b",
               r"\bofficial\b", r"\bwe (helped|grew|scaled)\b"]
-ROLE_OK = {"marketing", "partnerships", "partners", "press", "media", "pr", "hello", "hi", "info",
-           "contact", "team", "wholesale", "growth", "ecommerce", "brand", "collabs", "collab",
-           "creators", "affiliates", "business", "sales", "support", "help", "care", "cs",
-           "enquiries", "inquiries", "customerservice", "orders", "comms"}
+# Generic inboxes route to ticket systems and bots (zero human replies, Nov 2026): never use them.
+GENERIC_BAD = {"support", "info", "sales", "help", "care", "cs", "customerservice", "orders",
+               "enquiries", "inquiries", "press", "contact", "service", "customercare", "admin",
+               "webmaster", "noreply", "no-reply"}
+# First touch is problem-first: no offer, free work or build promise.
+OFFER_PHRASES = [r"\b48[- ]?hours?\b", r"pay only", r"only pay", r"no cost", r"at no charge",
+                 r"working (concept )?demo", r"concept demo", r"\bfree\b", r"retainer",
+                 r"\bI(?:'d| would) like to build\b", r"\bI can build\b"]
 
 
 def rows(path):
@@ -62,9 +66,8 @@ def check(d, ledger, dnc):
     brand_dom = (d.get("domain") or "").lower().removeprefix("www.")
     if dom and brand_dom and not (dom == brand_dom or dom.endswith("." + brand_dom) or brand_dom.endswith("." + dom)):
         W.append(f"address domain {dom} differs from brand domain {brand_dom}: confirm it is the brand's own")
-    if local and local.split("+")[0] not in ROLE_OK:
-        if re.search(r"[a-z]+\.[a-z]+|^[a-z]\.?[a-z]+$", local):
-            W.append("looks like a personal address: allowed ONLY if published verbatim by the brand (rule 3)")
+    if local.split("+")[0] in GENERIC_BAD:
+        E.append(f"generic inbox '{local}@': use a named owner address, a contact form or LinkedIn (rule 2)")
     # verification evidence: the address must have been seen on a public page
     if not d.get("source_url"):
         E.append("no source_url: address not verified on a public page (rule 3, no guessing)")
@@ -81,8 +84,8 @@ def check(d, ledger, dnc):
             E.append(f"already in ledger as '{r['status']}' ({r['brand']}): rule 5, check thread instead")
     # subject
     subj = d.get("subject", "")
-    if "Attn: E-Commerce Lead" not in subj:
-        E.append("subject must contain 'Attn: E-Commerce Lead' (rule 2)")
+    if not subj.strip():
+        E.append("subject is empty")
     if len(subj) > 70:
         W.append(f"subject is {len(subj)} chars; keep under 70")
     if re.search(r"[A-Z]{5,}", subj.replace("Attn", "")) or "!" in subj:
@@ -99,8 +102,8 @@ def check(d, ledger, dnc):
     if "<" in pitch and ">" in pitch:
         E.append("pitch looks like HTML; must be plain text")
     words = len(pitch.split())
-    if words > 110:
-        W.append(f"pitch is {words} words; aim for 60-110")
+    if words > 100:
+        W.append(f"pitch is {words} words; aim for 50-100")
     low = pitch.lower()
     hits = [t for t in SPAM_TRIGGERS if re.search(r"(?<![a-z])" + re.escape(t) + r"(?![a-z])", low)]
     if hits:
@@ -108,10 +111,11 @@ def check(d, ledger, dnc):
     for pat in OVERCLAIMS:
         if re.search(pat, pitch, re.I):
             E.append(f"overclaim / implied partnership ('{pat}'): demos are unofficial, numbers are modelled only")
-    if d.get("brand") and d["brand"].lower() not in low:
-        W.append("brand name not in pitch: personalise it")
-    if d.get("hero_product") and d["hero_product"].split()[0].lower() not in low:
-        W.append("hero product not referenced")
+    for pat in OFFER_PHRASES:
+        if re.search(pat, pitch, re.I):
+            E.append(f"offer-first wording ('{pat}'): first touch must be problem-first, no offer (rule 1)")
+    if not re.search(r"\bwho\b.*\b(website|site|store|marketing)\b", low, re.S):
+        W.append("no 'who looks after the website?' question")
     return E, W
 
 

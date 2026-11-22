@@ -104,12 +104,19 @@ No published address was found for MORRFlate, Autonomous or HigherDOSE.
 
 ## Email rules
 
-1. First touch: plain text, 3-4 sentences, no links, no dollar signs.
-2. One recipient, a published inbox, with "Attn: E-Commerce Lead" in the subject. No CC.
-3. Never guess executive addresses. More than 20 messages bounced between 10 and 14 November that way, which hurts the Gmail sender reputation.
-4. Space sends 4-5 minutes apart. Today's batch broke this rule, so pause new sends for a few days.
+Updated 23 Nov 2026 after about 70 offer-first emails to support inboxes got zero human replies.
+
+1. First touch: plain text, 3-4 sentences, no links, no dollar signs. Problem-first: one specific,
+   hedged problem seen on the brand's live site, then a small question (who looks after the
+   website?). **No offer, no free-work promise, no 48-hour claim in the first touch.**
+2. One recipient: a named founder/owner address published on the brand's own site, or a contact
+   form, or a LinkedIn note. **Never support/info/sales/help/care/orders/press inboxes.** No CC.
+3. Never guess executive addresses. More than 20 messages bounced between 10 and 14 November that
+   way, which hurts the Gmail sender reputation.
+4. At most 5 first-touch messages a day, 4-5 minutes apart.
 5. Check sent mail and replies for a brand before writing to it again.
 6. Save outreach as Gmail drafts for review; do not send directly.
+7. Demo links: only put a link in a message once a real demo is deployed.
 
 ## Open items
 
